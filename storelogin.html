@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Login Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .transition-section {
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .hidden-section {
+      transform: translateX(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .visible-section {
+      transform: translateX(0%);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-blue-200 to-white min-h-screen flex items-center justify-center px-4 relative">
+
+  <div class="bg-white bg-opacity-30 backdrop-blur-md rounded-[30px] w-full max-w-6xl flex flex-col md:flex-row overflow-hidden shadow-2xl relative">
+
+    <!-- Login Section -->
+    <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-10 transition-section visible-section overflow-y-auto max-h-[90vh]" id="loginSection">
+      <div class="mb-8 sm:mb-10">
+        <img src="https://img.icons8.com/ios-filled/50/000000/horizontal-line.png" class="w-6 mb-4 sm:mb-6"/>
+        <h2 class="text-blue-900 text-2xl sm:text-3xl font-bold mb-2">Welcome back</h2>
+        <p class="text-blue-700 text-sm sm:text-base">Please enter your Account details</p>
+      </div>
+      <form>
+        <div class="mb-4 sm:mb-6">
+          <label class="block text-blue-900 mb-1">Email</label>
+          <input type="email" placeholder="Johndoe@gmail.com"
+            class="w-full px-4 py-3 rounded-full text-blue-900 bg-white bg-opacity-70 border border-blue-200 shadow-inner focus:outline-none" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-blue-900 mb-1">Password</label>
+          <input type="password" placeholder="••••••••"
+            class="w-full px-4 py-3 rounded-full text-blue-900 bg-white bg-opacity-70 border border-blue-200 shadow-inner focus:outline-none" />
+        </div>
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 text-sm gap-2">
+          <label class="text-blue-800 flex items-center gap-2">
+            <input type="checkbox" class="accent-blue-500"> Keep me logged in
+          </label>
+          <a href="#" class="text-blue-500 hover:underline">Forgot Password</a>
+        </div>
+        <button type="submit"
+          class="w-full py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold hover:opacity-90 transition">
+          Sign in
+        </button>
+        <div class="flex justify-center gap-4 sm:gap-6 mt-6 flex-wrap">
+          <img src="https://img.icons8.com/color/48/google-logo.png" class="w-8 h-8 cursor-pointer"/>
+          <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png" class="w-8 h-8 cursor-pointer bg-white rounded-full p-1"/>
+          <img src="https://img.icons8.com/fluency/48/facebook-new.png" class="w-8 h-8 cursor-pointer"/>
+          <img src="https://img.icons8.com/fluency/48/instagram-new.png" class="w-8 h-8 cursor-pointer"/>
+          <img src="https://img.icons8.com/color/48/linkedin.png" class="w-8 h-8 cursor-pointer"/>
+          <img src="https://img.icons8.com/color/48/gmail.png" class="w-8 h-8 cursor-pointer"/>
+        </div>
+      </form>
+    </div>
+
+    <!-- Logo Section -->
+    <div class="bg-white text-[#1A2E45] p-6 sm:p-10 rounded-2xl shadow-xl flex flex-col items-center text-center w-full md:w-1/2 transition-section visible-section overflow-y-auto max-h-[90vh]" id="logoSection">
+      <img src="NAT logo bg removed.png" alt="NAT Logo" class="h-40 sm:h-64 w-auto mb-4" />
+      <h1 class="text-2xl sm:text-3xl font-bold">Welcome to</h1>
+      <h2 class="text-xl sm:text-2xl font-semibold text-green-600 mt-1">NAT Commercial Goods Management</h2>
+      <p class="text-blue-400 mt-2 sm:mt-4 text-sm sm:text-base">Home to smart store management</p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="absolute top-0 right-0 w-full bg-white text-[#1A2E45] p-6 sm:p-10 overflow-y-auto h-full transition-section hidden-section" id="featuresSection">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-center sm:text-left">Features</h1>
+      <div class="space-y-6">
+        <div class="fade-in bg-gray-100 p-4 rounded-lg shadow">
+          <h3 class="text-lg sm:text-xl font-semibold">🧾 Item Management</h3>
+          <p class="text-gray-600 mt-1">Easily add, update, or delete items in your store database with organized records.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-4 rounded-lg shadow">
+          <h3 class="text-lg sm:text-xl font-semibold">📊 Quantity Tracking</h3>
+          <p class="text-gray-600 mt-1">Track the available quantity of each item in real-time with automatic adjustments.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-4 rounded-lg shadow">
+          <h3 class="text-lg sm:text-xl font-semibold">🔔 Low Stock Alerts</h3>
+          <p class="text-gray-600 mt-1">Receive instant alerts when any item runs out or drops below the set threshold.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-4 rounded-lg shadow">
+          <h3 class="text-lg sm:text-xl font-semibold">🧾 Billing System</h3>
+          <p class="text-gray-600 mt-1">Generate clean, fast invoices and manage customer bills efficiently.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-4 rounded-lg shadow">
+          <h3 class="text-lg sm:text-xl font-semibold">🚀 Order Management (Coming Soon)</h3>
+          <p class="text-gray-600 mt-1">A seamless order tracking and processing feature is under development.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toggle Button -->
+  <div class="absolute bottom-4 right-4 md:right-10 z-50">
+    <button id="toggleBtn"
+      class="px-5 sm:px-6 py-2 border-2 border-[#1A2E45] rounded-md bg-white text-[#1A2E45] hover:bg-[#163154] hover:text-white transition-all text-sm sm:text-base">
+      Learn More
+    </button>
+  </div>
+
+  <script>
+    // Fade animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Toggle sections
+    const toggleBtn = document.getElementById("toggleBtn");
+    const loginSection = document.getElementById("loginSection");
+    const logoSection = document.getElementById("logoSection");
+    const featuresSection = document.getElementById("featuresSection");
+
+    let showingFeatures = false;
+
+    toggleBtn.addEventListener("click", () => {
+      showingFeatures = !showingFeatures;
+      if (showingFeatures) {
+        loginSection.classList.replace("visible-section", "hidden-section");
+        logoSection.classList.replace("visible-section", "hidden-section");
+        featuresSection.classList.replace("hidden-section", "visible-section");
+        toggleBtn.textContent = "Back to Login";
+      } else {
+        featuresSection.classList.replace("visible-section", "hidden-section");
+        loginSection.classList.replace("hidden-section", "visible-section");
+        logoSection.classList.replace("hidden-section", "visible-section");
+        toggleBtn.textContent = "Learn More";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store-Billing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .rotate-180 {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen relative overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="w-full h-16 sm:h-20 flex items-center justify-between px-4 sm:px-6 fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <div class="flex items-center space-x-2">
+      <img src="NAT logo bg removed.png" alt="Logo" class="h-24 sm:h-32 sm:w-32 object-contain" />
+    </div>
+    <div class="absolute left-1/2 transform -translate-x-1/2">
+      <h2 class="text-xl sm:text-3xl font-semibold text-[#1A2E45] tracking-wide">Theeran Events</h2>
+    </div>
+    <div class="flex items-center space-x-2 group relative">
+      <a href="#"><img src="user-circle-svgrepo-com.svg" alt="User" class="w-6 sm:w-8" /></a>
+      <h5 id="usernameDisplay" class="text-sm sm:text-base">User</h5>
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" onclick="toggleDropdown()">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+      <div id="dropdown" class="absolute right-0 mt-10 sm:mt-20 w-32 sm:w-40 bg-white shadow-md rounded-md text-[#1A2E45] border border-gray-200 hidden z-50">
+        <ul class="text-sm">
+          <li>
+            <button onclick="showLogoutPopup()" class="w-full text-left px-4 py-2 hover:bg-blue-100 rounded-b-md">Log Out</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar and Main -->
+  <div class="flex flex-col sm:flex-row pt-16 sm:pt-20">
+    <!-- Sidebar -->
+    <aside class="w-full sm:w-64 min-h-screen fixed top-16 sm:top-20 left-0 bg-blue-500 text-white p-4 sm:p-6 shadow-md z-40">
+      <nav class="flex flex-col gap-3 sm:gap-5 text-sm font-medium">
+        <a href="storedashborad.html" class="text-white hover:bg-blue-900 px-3 py-2 rounded-md transition-all block">Dashboard</a>
+        <a href="billing.html" class="bg-blue-900 px-3 py-2 rounded-md transition-all block">Billing</a>
+        <a href="#" class="hover:bg-blue-900 px-3 py-2 rounded-md transition-all block">Orders</a>
+        <a href="inventory.html" class="hover:bg-blue-900 px-3 py-2 rounded-md transition-all block">Inventory</a>
+        <a href="#" class="hover:bg-blue-900 px-3 py-2 rounded-md transition-all block">Summary</a>
+        <a href="monthlypass.html" class="hover:bg-blue-900 px-3 py-2 rounded-md transition-all block">Customers</a>
+        <a href="#" class="hover:bg-blue-900 px-3 py-2 rounded-md transition-all block">Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+
+<main class="flex-1 w-full sm:ml-64 p-6 sm:p-10">
+  <!-- Customer Info -->
+  <div class="bg-white p-6 rounded-xl shadow-md mb-6">
+    <h2 class="text-lg font-semibold mb-4 text-blue-700">Customer Details</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <input type="text" id="custName" placeholder="Customer Name" class="border p-2 rounded-md" />
+      <input type="text" id="custAddress" placeholder="Customer Address" class="border p-2 rounded-md" />
+      <input type="text" id="custMobile" placeholder="Mobile Number" class="border p-2 rounded-md" />
+    </div>
+  </div>
+
+  <!-- Billing Section -->
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-semibold text-blue-600">Bill Summary</h2>
+      <button onclick="toggleProductPopup()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Add Product</button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full border text-sm">
+        <thead class="bg-blue-100">
+          <tr>
+            <th class="border p-2">Item</th>
+            <th class="border p-2">Quantity</th>
+            <th class="border p-2">Unit Price</th>
+            <th class="border p-2">Total</th>
+            <th class="border p-2">Action</th>
+          </tr>
+        </thead>
+        <tbody id="billTableBody" class="text-center"></tbody>
+        <tfoot class="text-right">
+          <tr>
+            <td colspan="3" class="p-2 font-bold">Grand Total:</td>
+            <td colspan="2" id="grandTotal" class="p-2 font-bold">₹0</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Product Popup -->
+<div id="productPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white w-11/12 max-w-2xl p-6 rounded-lg shadow-lg relative">
+    <h3 class="text-lg font-semibold mb-4">Available Products</h3>
+    <button onclick="toggleProductPopup()" class="absolute top-2 right-4 text-red-500 text-xl">×</button>
+    <table class="w-full border text-sm">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="border p-2">Item</th>
+          <th class="border p-2">Qty</th>
+          <th class="border p-2">Unit Price</th>
+          <th class="border p-2">Add</th>
+        </tr>
+      </thead>
+      <tbody id="productList">
+        <!-- Sample product rows -->
+        <tr>
+          <td class="border p-2">Plastic Chair</td>
+          <td class="border p-2"><input type="number" class="border p-1 w-16 qtyInput" min="1" value="1" /></td>
+          <td class="border p-2"><input type="number" class="border p-1 w-20 priceInput" min="1" value="10" /></td>
+          <td class="border p-2">
+            <button class="bg-green-500 text-white px-2 py-1 rounded add-btn" onclick="addToBill(this)">Add</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="border p-2">Dining Chair</td>
+          <td class="border p-2"><input type="number" class="border p-1 w-16 qtyInput" min="1" value="1" /></td>
+          <td class="border p-2"><input type="number" class="border p-1 w-20 priceInput" min="1" value="15" /></td>
+          <td class="border p-2">
+            <button class="bg-green-500 text-white px-2 py-1 rounded add-btn" onclick="addToBill(this)">Add</button>
+          </td>
+        </tr>
+        <!-- Add more items as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>
+    <!-- Buttons 
+<div class="mt-4 flex gap-4">
+  <button onclick="window.print()" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+    🖨️ Print Bill
+  </button>
+  <button onclick="saveBill()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+    💾 Save Bill
+  </button>
+</div>-->
+
+
+<!-- Scripts -->
+<script>
+  function toggleProductPopup() {
+    document.getElementById("productPopup").classList.toggle("hidden");
+  }
+
+  function addToBill(button) {
+    const row = button.closest("tr");
+    const itemName = row.children[0].textContent;
+    const qty = parseInt(row.querySelector(".qtyInput").value);
+    const price = parseFloat(row.querySelector(".priceInput").value);
+    const total = qty * price;
+
+    const billTable = document.getElementById("billTableBody");
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td class="border p-2">${itemName}</td>
+      <td class="border p-2">${qty}</td>
+      <td class="border p-2">₹${price}</td>
+      <td class="border p-2 item-total">₹${total}</td>
+      <td class="border p-2"><button onclick="removeRow(this)" class="text-red-500">Remove</button></td>
+    `;
+    billTable.appendChild(tr);
+    updateGrandTotal();
+    toggleProductPopup();
+  }
+
+  function removeRow(button) {
+    button.closest("tr").remove();
+    updateGrandTotal();
+  }
+
+  function updateGrandTotal() {
+    const totals = document.querySelectorAll(".item-total");
+    let grand = 0;
+    totals.forEach(t => {
+      grand += parseFloat(t.textContent.replace("₹", ""));
+    });
+    document.getElementById("grandTotal").textContent = `₹${grand}`;
+  }
+    function saveBill() {
+    const name = document.getElementById("custName").value;
+    const address = document.getElementById("custAddress").value;
+    const mobile = document.getElementById("custMobile").value;
+
+    if (!name || !mobile) {
+      alert("Please enter at least name and mobile number.");
+      return;
+    }
+
+    const billItems = [];
+    document.querySelectorAll("#billTableBody tr").forEach(row => {
+      const cells = row.querySelectorAll("td");
+      billItems.push({
+        item: cells[0].textContent,
+        quantity: cells[1].textContent,
+        price: cells[2].textContent,
+        total: cells[3].textContent
+      });
+    });
+
+    const bill = {
+      customer: { name, address, mobile },
+      items: billItems,
+      total: document.getElementById("grandTotal").textContent,
+      savedAt: new Date().toLocaleString()
+    };
+
+    localStorage.setItem("savedBill", JSON.stringify(bill));
+    alert("Bill saved successfully!");
+  }
+</script>
+
+</body>
+</html>
